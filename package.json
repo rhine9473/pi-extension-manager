@@ -1,0 +1,35 @@
+{
+  "name": "pi-extension-manager",
+  "version": "0.1.0",
+  "description": "中文 Pi 扩展管理器：按作者分组浏览扩展，管理单项与整包开关、查看改动、更新和卸载包。",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "extensions",
+    "tui"
+  ],
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhine9473/pi-extension-manager.git"
+  },
+  "homepage": "https://github.com/rhine9473/pi-extension-manager",
+  "bugs": {
+    "url": "https://github.com/rhine9473/pi-extension-manager/issues"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "test": "node --test *.test.mjs"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

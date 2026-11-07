@@ -1,0 +1,17 @@
+node_modules/
+coverage/
+.env
+.env.*
+*.log
+*.bak
+*.tmp
+*.tgz
+.DS_Store
+Thumbs.db
+/auth.json
+/models.json
+/models-store.json
+/settings.json
+/state/
+/sessions/
+/pi-sync/
