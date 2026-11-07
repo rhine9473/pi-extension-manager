@@ -36,10 +36,13 @@ test('installed update evidence comes from the manifest version and its mtime', 
   fs.writeFileSync(path.join(root, 'package.json'), JSON.stringify({ name: 'x' }));
   assert.equal(packageFingerprint(root).version, '', 'a manifest without a version must not invent one');
   assert.match(describeUpdateResult(first, { version: '1.2.0', mtimeMs: first.mtimeMs + 1000 }), /版本 1\.1\.0 → 1\.2\.0/);
-  assert.match(describeUpdateResult(first, { version: '1.1.0', mtimeMs: first.mtimeMs + 1000 }), /版本仍为 1\.1\.0，但安装文件已改写/);
-  assert.match(describeUpdateResult({ version: '1.1.0', mtimeMs: 5 }, { version: '1.1.0', mtimeMs: 5 }), /均未变化/);
-  assert.match(describeUpdateResult({ version: '', mtimeMs: 5 }, { version: '', mtimeMs: 9 }), /该包不声明版本，但安装文件已改写/);
-  assert.match(describeUpdateResult({ version: '', mtimeMs: 5 }, { version: '', mtimeMs: 5 }), /该包不声明版本，安装文件也没有变化/);
+  assert.match(describeUpdateResult(first, { version: '1.1.0', mtimeMs: first.mtimeMs + 1000 }), /版本仍为 1\.1\.0；package\.json 修改时间已变化/);
+  const unchanged = describeUpdateResult({ version: '1.1.0', mtimeMs: 5 }, { version: '1.1.0', mtimeMs: 5 });
+  assert.match(unchanged, /package\.json 修改时间未变，其他文件的变化未核实/);
+  assert.doesNotMatch(unchanged, /已是最新|安装文件均未变化/);
+  assert.match(describeUpdateResult({ version: '', mtimeMs: 5 }, { version: '', mtimeMs: 9 }), /未读到版本号；package\.json 修改时间已变化/);
+  assert.match(describeUpdateResult({ version: '', mtimeMs: 5 }, { version: '', mtimeMs: 5 }), /未读到版本号；未观察到 package\.json 修改时间变化/);
+  assert.doesNotMatch(describeUpdateResult(first, { version: '', mtimeMs: 0 }), /已变化|已是最新/);
 });
 
 test('staged changes are described as plain actions, folding a closed package over its children', () => {

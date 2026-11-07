@@ -161,7 +161,7 @@ async function manage(ctx: ExtensionCommandContext): Promise<boolean> {
   }
   const packageVersionLine = (root: string | undefined) => {
     const value = packageFingerprint(root).version;
-    return value ? `版本：${value}` : '该包不声明版本号；更新结果按安装文件时间判断';
+    return value ? `版本：${value}` : '未读到版本号；更新提示仅对比 package.json 的修改时间';
   };
   const displayPath = (file: string) => (file.startsWith(agentDir) ? `~${file.slice(agentDir.length)}` : file).split('\\').join('/');
   function resourceDetails(r: ResolvedResource): string[] {

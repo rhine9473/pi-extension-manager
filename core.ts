@@ -120,10 +120,10 @@ export function packageFingerprint(root) {
 }
 
 export function describeUpdateResult(before, after) {
-  const rewrote = Boolean(before.mtimeMs) && after.mtimeMs !== before.mtimeMs;
+  const rewrote = Boolean(before.mtimeMs && after.mtimeMs) && after.mtimeMs !== before.mtimeMs;
   if (before.version && after.version && before.version !== after.version) return `版本 ${before.version} → ${after.version}`;
-  if (!after.version) return rewrote ? '该包不声明版本，但安装文件已改写' : '该包不声明版本，安装文件也没有变化';
-  if (before.version === after.version) return rewrote ? `版本仍为 ${after.version}，但安装文件已改写` : `版本与安装文件均未变化（${after.version}；已是最新或来源固定了版本/ref）`;
+  if (!after.version) return rewrote ? '未读到版本号；package.json 修改时间已变化' : '未读到版本号；未观察到 package.json 修改时间变化';
+  if (before.version === after.version) return rewrote ? `版本仍为 ${after.version}；package.json 修改时间已变化` : `版本仍为 ${after.version}；package.json 修改时间未变，其他文件的变化未核实`;
   return `版本记录缺失（更新前 ${before.version || '无'}，更新后 ${after.version || '无'}）`;
 }
 

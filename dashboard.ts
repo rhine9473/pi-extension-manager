@@ -288,7 +288,7 @@ export class ManagerDashboard implements Component, Focusable {
     if (this.packageActionAllowed(selected, 'update')) actions.push(narrow ? 'u更新' : 'u 更新包');
     if (this.packageActionAllowed(selected, 'remove')) actions.push(narrow ? 'd卸载' : 'd 卸载包');
     const footer = (this.searching
-      ? narrow ? ['Enter Esc完成'] : ['搜索中 · 实时筛选 · Enter / Esc 完成 · Ctrl+U 清空']
+      ? narrow ? ['Enter Esc完成'] : ['搜索中 · 实时筛选 · Enter / Esc 完成 · Ctrl+U 删至行首']
       : narrow ? [`${selected?.type === 'package' ? '↑↓ ↵菜单 ' : '↑↓ '}Tab / Esc${this.state.query ? '清' : '退'}`, actions.join(' ')].filter(Boolean) : [
         ['↑↓ 选择', selected?.type === 'package' ? 'Enter 包菜单' : '', 'Tab 切页', '/ 搜索', this.state.query ? 'Esc 清除筛选' : 'Esc 退出'].filter(Boolean).join(' · '),
         actions.join(' · '),
