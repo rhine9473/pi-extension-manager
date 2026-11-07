@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { type TestContext } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -8,7 +8,7 @@ import { backup, clean, clone, discover, identity, packageFingerprint, describeU
 
 const host = process.env.PI_TEST_HOST || path.join(process.env.APPDATA, 'npm/node_modules/@earendil-works/pi-coding-agent');
 const api = await import(pathToFileURL(path.join(host, 'dist/index.js')).href);
-function fixture(t) {
+function fixture(t: TestContext) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pi-extension-manager-test-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const agent = path.join(root, 'agent'); const cwd = path.join(root, 'project');

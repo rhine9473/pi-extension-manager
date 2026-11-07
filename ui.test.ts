@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { type TestContext } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -11,7 +11,7 @@ const { TuiBase } = await import(pathToFileURL(path.join(host, 'node_modules/@ea
 const support = path.dirname(fileURLToPath(import.meta.url));
 const originalAgentDir = process.env.PI_CODING_AGENT_DIR;
 
-async function setup(t, warmOldModules = false) {
+async function setup(t: TestContext, warmOldModules = false) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pi-extension-manager-ui-'));
   const agent = path.join(root, 'agent'); const cwd = path.join(root, 'project');
   const managerDir = path.join(agent, 'extensions/extension-manager');

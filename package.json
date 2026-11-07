@@ -21,7 +21,7 @@
     "node": ">=22.19.0"
   },
   "scripts": {
-    "test": "node --test *.test.mjs"
+    "test": "node --test --experimental-strip-types *.test.ts"
   },
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": "*",

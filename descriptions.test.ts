@@ -1,11 +1,11 @@
-import test from 'node:test';
+import test, { type TestContext } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { packageDescription, resourceDescription } from './descriptions.ts';
 
-function fixture(t) {
+function fixture(t: TestContext) {
   const agent = fs.mkdtempSync(path.join(os.tmpdir(), 'pi-manager-descriptions-'));
   const extensions = path.join(agent, 'extensions');
   fs.mkdirSync(extensions);

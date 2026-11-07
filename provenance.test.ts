@@ -1,11 +1,11 @@
-import test from 'node:test';
+import test, { type TestContext } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { createProvenanceReader } from './provenance.ts';
 
-function fixture(t) {
+function fixture(t: TestContext) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pi-manager-authors-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   return root;
